@@ -1,0 +1,5 @@
+Firstname,MiddleInitials,Lastname,Department,JobTitle,Country,Mobile,Password,UserPrincipalName,MailNickName
+,S,Fischer,Development,Manager,Kuwait,12345,P@ssw0rd@123,P.Fischer@azure-heroes.com,P.Fischer
+James,T,McGuire,Research,Assistant,Jordan,12455,P@ssw0rd@123,J.Research@azure-heroes.com,J.Research
+Karen,R,Cristo,Sales,Director,USA,23456,P@ssw0rd@123,K.Cristo@azure-heroes.com,K.Cristo
+"				   ",,,,,,,,,
