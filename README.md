@@ -1,5 +1,5 @@
 # Azure-AD-Daily Admin Tasks
-Azure Active Directory automation PowerShell scripts.
+## Azure Active Directory automation PowerShell scripts.
 This repository contains automation PowerShell scripts for common Azure AD management scenarios such as:
 1.	Connect to Azure AD
 2.	Create New Users
