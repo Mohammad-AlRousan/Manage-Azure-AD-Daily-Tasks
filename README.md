@@ -1,3 +1,5 @@
+#### Script is still under develpment - Feel free to contact me if you need any help
+
 # Azure-AD-Daily Admin Tasks
 ## Azure Active Directory automation PowerShell scripts.
 ## This repository contains automation PowerShell scripts for common Azure AD management scenarios such as:
