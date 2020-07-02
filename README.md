@@ -18,7 +18,7 @@ Will Explain each Option: -
 The script will connect to Azure AD and here you have two option
 •	Uncomment the 4 lines code and store you credentials if you don’t like to keep entering them every time
 •	do not change the function and you will be able to connect with new credential every time = 
-2. ### Create New Users
+2.### Create New Users
 The Script Will create one or multiple users in Azure AD as per data filled in CSV file
 The CSV has the below columns:
 •	Firstname, MiddleInitials, Lastname, Department, JobTitle, Country, Mobile, Password, UserPrincipalName, MailNickName
