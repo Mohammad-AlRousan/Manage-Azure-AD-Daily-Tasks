@@ -14,7 +14,7 @@
 11.	Enable MFA/ Force MFA For Users
 12.	Recover Deleted Object
 Will Explain each Option: -
-1. 1. ###	Connect to Azure AD
+1. ###	Connect to Azure AD
 The AzureADGroupsfolder has 2 scripts:
 * createAzureADGroups.ps1
 This script will create a new Azure AD Group.
