@@ -1,6 +1,6 @@
 # Azure-AD-Daily Admin Tasks
 ## Azure Active Directory automation PowerShell scripts.
-This repository contains automation PowerShell scripts for common Azure AD management scenarios such as:
+## This repository contains automation PowerShell scripts for common Azure AD management scenarios such as:
 1.	Connect to Azure AD
 2.	Create New Users
 3.	Delete Existing Users
@@ -14,7 +14,7 @@ This repository contains automation PowerShell scripts for common Azure AD manag
 11.	Enable MFA/ Force MFA For Users
 12.	Recover Deleted Object
 Will Explain each Option: -
-1. 1.	Connect to Azure AD
+1. 1. ###	Connect to Azure AD
 The AzureADGroupsfolder has 2 scripts:
 * createAzureADGroups.ps1
 This script will create a new Azure AD Group.
@@ -34,7 +34,7 @@ The following are the script parameters:
 •	AppRoleName= name of the Azure AD app role
 •	ADGroupName= name of the Azure AD group
 On executing the script the group will be configured to mapped to the given role existing in the provided AD application.
-2. Create New Users
+2. ### Create New Users
 The AzureSQLAdApp has 2 scripts:
 * SqlAdminSetup.sql
 This SQL script will create a new db owner member from an existing AD application.
@@ -55,7 +55,7 @@ The following are the script parameters:
 •	subscriptionName = name of the azure subscription
 •	drSqlServer = flag to enable the azure ad application to be added as an administrator on the target sql servers
 On executing the script the desired AD application is created, the desired AD group is configured to give admin access to only group members against the target sql server and the AD application is added as db owner member at the target sql databases.
-3. Delete Existing Users
+3. ### Delete Existing Users
 The Azure-AD-Automation has 2 scripts:
 * AzureServicePrincipal.ps1
 This script will generate an Azure service principal account and assign owner role to the azure subscription.
@@ -66,7 +66,7 @@ The following are the script parameters:
 •	environmentName = name of the azure environment
 On executing the script a new azure AD application is created with the provided configurations and protected by the given password. Post this a service principal is created against the same and granted owner permission to azure subscription. This service principal can now be used to connect securely to the azure subscription and manage resources.
 
-4. Add User to Group
+4. ### Add User to Group
 The Azure-AD-Automation has 2 scripts:
 * AzureServicePrincipal.ps1
 This script will generate an Azure service principal account and assign owner role to the azure subscription.
@@ -76,7 +76,7 @@ The following are the script parameters:
 •	spnRole = name of the permission to be granted
 •	environmentName = name of the azure environment
 On executing the script a new azure AD application is created with the provided configurations and protected by the given password. Post this a service principal is created against the same and granted owner permission to azure subscription. This service principal can now be used to connect securely to the azure subscription and manage resources.
-5. Remove user from Group
+5. ### Remove user from Group
 The Azure-AD-Automation has 2 scripts:
 * AzureServicePrincipal.ps1
 This script will generate an Azure service principal account and assign owner role to the azure subscription.
@@ -86,7 +86,7 @@ The following are the script parameters:
 •	spnRole = name of the permission to be granted
 •	environmentName = name of the azure environment
 On executing the script a new azure AD application is created with the provided configurations and protected by the given password. Post this a service principal is created against the same and granted owner permission to azure subscription. This service principal can now be used to connect securely to the azure subscription and manage resources.
-6. Delete Existing Users
+6. ### Delete Existing Users
 The Azure-AD-Automation has 2 scripts:
 * AzureServicePrincipal.ps1
 This script will generate an Azure service principal account and assign owner role to the azure subscription.
@@ -96,7 +96,7 @@ The following are the script parameters:
 •	spnRole = name of the permission to be granted
 •	environmentName = name of the azure environment
 On executing the script a new azure AD application is created with the provided configurations and protected by the given password. Post this a service principal is created against the same and granted owner permission to azure subscription. This service principal can now be used to connect securely to the azure subscription and manage resources.
-7. Get Current License Status
+7. ### Get Current License Status
 The Azure-AD-Automation has 2 scripts:
 * AzureServicePrincipal.ps1
 This script will generate an Azure service principal account and assign owner role to the azure subscription.
@@ -106,7 +106,7 @@ The following are the script parameters:
 •	spnRole = name of the permission to be granted
 •	environmentName = name of the azure environment
 On executing the script a new azure AD application is created with the provided configurations and protected by the given password. Post this a service principal is created against the same and granted owner permission to azure subscription. This service principal can now be used to connect securely to the azure subscription and manage resources.
-8. Assign License
+8. ### Assign License
 The Azure-AD-Automation has 2 scripts:
 * AzureServicePrincipal.ps1
 This script will generate an Azure service principal account and assign owner role to the azure subscription.
@@ -116,7 +116,7 @@ The following are the script parameters:
 •	spnRole = name of the permission to be granted
 •	environmentName = name of the azure environment
 On executing the script a new azure AD application is created with the provided configurations and protected by the given password. Post this a service principal is created against the same and granted owner permission to azure subscription. This service principal can now be used to connect securely to the azure subscription and manage resources.
-9. Remove License
+9. ### Remove License
 The Azure-AD-Automation has 2 scripts:
 * AzureServicePrincipal.ps1
 This script will generate an Azure service principal account and assign owner role to the azure subscription.
@@ -126,7 +126,7 @@ The following are the script parameters:
 •	spnRole = name of the permission to be granted
 •	environmentName = name of the azure environment
 On executing the script a new azure AD application is created with the provided configurations and protected by the given password. Post this a service principal is created against the same and granted owner permission to azure subscription. This service principal can now be used to connect securely to the azure subscription and manage resources.
-10. Add Azure Application
+10. ### Add Azure Application
 The Azure-AD-Automation has 2 scripts:
 * AzureServicePrincipal.ps1
 This script will generate an Azure service principal account and assign owner role to the azure subscription.
@@ -136,7 +136,7 @@ The following are the script parameters:
 •	spnRole = name of the permission to be granted
 •	environmentName = name of the azure environment
 On executing the script a new azure AD application is created with the provided configurations and protected by the given password. Post this a service principal is created against the same and granted owner permission to azure subscription. This service principal can now be used to connect securely to the azure subscription and manage resources.
-11. Remove Azure Application
+11. ### Remove Azure Application
 The Azure-AD-Automation has 2 scripts:
 * AzureServicePrincipal.ps1
 This script will generate an Azure service principal account and assign owner role to the azure subscription.
@@ -146,7 +146,7 @@ The following are the script parameters:
 •	spnRole = name of the permission to be granted
 •	environmentName = name of the azure environment
 On executing the script a new azure AD application is created with the provided configurations and protected by the given password. Post this a service principal is created against the same and granted owner permission to azure subscription. This service principal can now be used to connect securely to the azure subscription and manage resources.
-12. Enable MFA/ Force MFA For Users
+12. ### Enable MFA/ Force MFA For Users
 The Azure-AD-Automation has 2 scripts:
 * AzureServicePrincipal.ps1
 This script will generate an Azure service principal account and assign owner role to the azure subscription.
@@ -157,7 +157,7 @@ The following are the script parameters:
 •	environmentName = name of the azure environment
 On executing the script a new azure AD application is created with the provided configurations and protected by the given password. Post this a service principal is created against the same and granted owner permission to azure subscription. This service principal can now be used to connect securely to the azure subscription and manage resources.
 
-12.  Recover Deleted Object
+12. ### Recover Deleted Object
 The Azure-AD-Automation has 2 scripts:
 * AzureServicePrincipal.ps1
 This script will generate an Azure service principal account and assign owner role to the azure subscription.
