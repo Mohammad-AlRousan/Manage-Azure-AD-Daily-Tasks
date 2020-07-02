@@ -14,7 +14,7 @@
 11.	Enable MFA/ Force MFA For Users
 12.	Recover Deleted Object
 Will Explain each Option: -
-1. ###	Connect to Azure AD
+1.###	Connect to Azure AD
 The script will connect to Azure AD and here you have two option
 •	Uncomment the 4 lines code and store you credentials if you don’t like to keep entering them every time
 •	do not change the function and you will be able to connect with new credential every time = 
