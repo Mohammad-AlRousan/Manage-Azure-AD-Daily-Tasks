@@ -1,20 +1,20 @@
 # Azure-AD-Daily Admin Tasks
 ## Azure Active Directory automation PowerShell scripts.
 ## This repository contains automation PowerShell scripts for common Azure AD management scenarios such as:
-1.	Connect to Azure AD
-2.	Create New Users
-3.	Delete Existing Users
-4.	Add User to Group
-5.	Remove user from Group
-6.	Get Current License Status
-7.	Assign License
-8.	Remove License
-9.	Add Azure Application
-10.	Remove Azure Application
-11.	Enable MFA/ Force MFA For Users
-12.	Recover Deleted Object
+  1.	Connect to Azure AD
+  2.	Create New Users
+  3.	Delete Existing Users
+  4.	Add User to Group
+  5.	Remove user from Group
+  6.	Get Current License Status
+  7.	Assign License
+  8.	Remove License
+  9.	Add Azure Application
+  10.	Remove Azure Application
+  11.	Enable MFA/ Force MFA For Users
+  12.	Recover Deleted Object
 Will Explain each Option: -
-1.###	Connect to Azure AD
+1. ###	Connect to Azure AD
 The script will connect to Azure AD and here you have two option
 •	Uncomment the 4 lines code and store you credentials if you don’t like to keep entering them every time
 •	do not change the function and you will be able to connect with new credential every time = 
