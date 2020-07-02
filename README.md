@@ -13,11 +13,13 @@
   10.	Remove Azure Application
   11.	Enable MFA/ Force MFA For Users
   12.	Recover Deleted Object
-Will Explain each Option: -
+Will Explain each Option:
+
 1. ###	Connect to Azure AD
 The script will connect to Azure AD and here you have two option
 •	Uncomment the 4 lines code and store you credentials if you don’t like to keep entering them every time
-•	do not change the function and you will be able to connect with new credential every time = 
+•	do not change the function and you will be able to connect with new credential every time
+
 2.### Create New Users
 The Script Will create one or multiple users in Azure AD as per data filled in CSV file
 The CSV has the below columns:
@@ -25,13 +27,16 @@ The CSV has the below columns:
 
 UserPrincipalName, are MailNickName optional fields
 You need just to fill the CSV file and confirm on shell before you start the operation
+
 3. ### Delete Existing Users
 You can delete single or multiple users thru the CSV file, you just have to fill either UserPrincipalName or MailNickName
 
 4. ### Add User to Group
 You can add single or multiple users into the specific group thru the CSV file, you just have to fill either UserPrincipalName or MailNickName, the script will list all group you have and then you  can select the desire group
+
 5. ### Remove User from Group
-You can remove single or multiple users from the specific group thru the CSV file, you just have to fill either UserPrincipalName or MailNickName, the script will list all group you have and then you  can select the desire group
+You can remove single or multiple users from the specific group thru the CSV file, you just have to fill either UserPrincipalName or MailNickName, the script will list all group you have and then you can select the desire group
+
 6. ### Get Current License Status
 The script will list the available and the consumed licenses
 
