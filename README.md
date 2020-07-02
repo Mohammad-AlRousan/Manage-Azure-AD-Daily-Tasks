@@ -15,12 +15,12 @@
   12.	Recover Deleted Object
 Will Explain each Option:
 
-1.###	Connect to Azure AD
+### Connect to Azure AD
 The script will connect to Azure AD and here you have two option
 •	Uncomment the 4 lines code and store you credentials if you don’t like to keep entering them every time
 •	do not change the function and you will be able to connect with new credential every time
 
-2.### Create New Users
+### Create New Users
 The Script Will create one or multiple users in Azure AD as per data filled in CSV file
 The CSV has the below columns:
 •	Firstname, MiddleInitials, Lastname, Department, JobTitle, Country, Mobile, Password, UserPrincipalName, MailNickName
@@ -28,32 +28,32 @@ The CSV has the below columns:
 UserPrincipalName, are MailNickName optional fields
 You need just to fill the CSV file and confirm on shell before you start the operation
 
-3.### Delete Existing Users
+### Delete Existing Users
 You can delete single or multiple users thru the CSV file, you just have to fill either UserPrincipalName or MailNickName
 
-4.### Add User to Group
+### Add User to Group
 You can add single or multiple users into the specific group thru the CSV file, you just have to fill either UserPrincipalName or MailNickName, the script will list all group you have and then you  can select the desire group
 
-5.### Remove User from Group
+### Remove User from Group
 You can remove single or multiple users from the specific group thru the CSV file, you just have to fill either UserPrincipalName or MailNickName, the script will list all group you have and then you can select the desire group
 
-6.### Get Current License Status
+### Get Current License Status
 The script will list the available and the consumed licenses
 
-7.### Assign License
+### Assign License
 You can assign license for single or multiple users thru the CSV file, you just have to fill either UserPrincipalName or MailNickName, the script will list all licenses  you have and then you  can select the desire license you want to assign
 
-8.### Unassign License
+### Unassign License
 You can unassign license for single or multiple users thru the CSV file, you just have to fill either UserPrincipalName or MailNickName, the script will remove all licenses you assigned for them
 
-9.### Add Azure Application
+### Add Azure Application
 Create an Azure AD application that can access resources
 
-10.### Remove Azure Application
+### Remove Azure Application
 The Script will list all Azure AD application and then you can select which one you want to remove 
 
-11.### Enable MFA/ Force MFA For Users
+### Enable MFA/ Force MFA For Users
 You can Enable and enforce MFA for single or multiple users thru the CSV file, you just have to fill either UserPrincipalName or MailNickName, the script will enable or enforce based on that
 
-11.### Recover Deleted Object
+### Recover Deleted Object
 The script will list all deleted object from Azure AD and then you can select which object you which to recover
