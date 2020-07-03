@@ -14,8 +14,9 @@
   9.	Add Azure Application
   10.	Remove Azure Application
   11.	Enable MFA/ Force MFA For Users
+  12. Disable MFA For Users
   12.	Recover Deleted Object
-Will Explain each Option:
+We Will Explain each Option:
 
 ### Connect to Azure AD
 The script will connect to Azure AD and here you have two option
@@ -56,6 +57,9 @@ The Script will list all Azure AD application and then you can select which one 
 
 ### Enable MFA/ Force MFA For Users
 You can Enable and enforce MFA for single or multiple users thru the CSV file, you just have to fill either UserPrincipalName or MailNickName, the script will enable or enforce based on that
+
+### Disable MFA For Users
+You can Disable  MFA for single or multiple users thru the CSV file, you just have to fill either UserPrincipalName or MailNickName
 
 ### Recover Deleted Object
 The script will list all deleted object from Azure AD and then you can select which object you which to recover
