@@ -310,6 +310,12 @@ Write-Host "Checking all avaialble Licenses license..." -ForegroundColor White
 			}		
 }
 
+
+function Unassign-License
+{
+	
+}
+
 function Create-AzureADApp
 {
 
@@ -385,6 +391,135 @@ Get-AzureRmADApplication -ObjectId $azApps[$userinput].ObjectId | Remove-AzureRm
  
 }
 
+
+function Enable-MFA
+{
+	Connect-MsolService
+
+  $ReadUserInput = Read-Host "To Enable MFA for one User  press (A), To Enable MFA for Bulk Users  press (B), To Enable MFA for All Users press (C) " 
+	
+	if($ReadUserInput -eq 'A' -Or $ReadUserInput -eq 'a')
+	{
+	  $username = Read-Host "Please enter UserPrincipalName. e.g m.alfredo@azuer-heroes.com " 
+
+		$st = New-Object -TypeName Microsoft.Online.Administration.StrongAuthenticationRequirement
+		$st.RelyingParty = "*"
+		$st.State = "Enabled"
+		$sta = @($st)
+		
+		# Change the following UserPrincipalName to the user you wish to change state
+		Set-MsolUser -UserPrincipalName $username -StrongAuthenticationRequirements $sta
+	} elseif($ReadUserInput -eq 'B' -Or $ReadUserInput -eq 'b')
+	{
+		 write-host "Please make sure to fill the CSV File with the required Data..."
+				   $continue = Read-Host "If you are ready enter (Y) or (y)"
+				   
+				   if($continue -eq 'y' -Or $continue -eq 'Y')
+					{
+						$users = import-csv -Path $CsvFilePath
+
+					###
+					### Loop through all new users in the file. We'll use the ForEach cmdlet for this.
+					###
+
+					Foreach ($user in $users) { 
+
+						if([string]::IsNullOrEmpty($user.UserPrincipalName))
+						{	
+								$st = New-Object -TypeName Microsoft.Online.Administration.StrongAuthenticationRequirement
+								$st.RelyingParty = "*"
+								$st.State = "Enabled"
+								$sta = @($st)
+								
+								# Change the following UserPrincipalName to the user you wish to change state
+								Set-MsolUser -UserPrincipalName $user.MailNickName+ "@" + $Directory -StrongAuthenticationRequirements $sta
+								
+							
+						} else {
+							$st = New-Object -TypeName Microsoft.Online.Administration.StrongAuthenticationRequirement
+								$st.RelyingParty = "*"
+								$st.State = "Enabled"
+								$sta = @($st)
+								
+								# Change the following UserPrincipalName to the user you wish to change state
+							Set-MsolUser -UserPrincipalName $user.UserPrincipalName -StrongAuthenticationRequirements $sta
+
+						}
+					###
+					### End the Foreach loop
+					###
+						}
+	
+					}
+					else
+					{
+					 write-host "End the Porcess..."
+					}
+	} elseif($ReadUserInput -eq 'C' -Or $ReadUserInput -eq 'c')
+	{
+		   Get-MsolUser -All | Set-MsolUser -StrongAuthenticationRequirements $mfa
+	}
+				
+
+}
+
+
+function Disable-MFA
+{
+ Connect-MsolService
+
+  $ReadUserInput = Read-Host "To Disable MFA for one User  press (A), To Disable MFA for Bulk Users  press (B), To Disable MFA for All Users press (C) " 
+	
+	if($ReadUserInput -eq 'A' -Or $ReadUserInput -eq 'a')
+	{
+	  $username = Read-Host "Please enter UserPrincipalName. e.g m.alfredo@azuer-heroes.com " 
+
+		Get-MsolUser -UserPrincipalName $username | Set-MsolUser -StrongAuthenticationRequirements @()
+		
+	} elseif($ReadUserInput -eq 'B' -Or $ReadUserInput -eq 'b')
+	{
+		 write-host "Please make sure to fill the CSV File with the required Data..."
+				   $continue = Read-Host "If you are ready enter (Y) or (y)"
+				   
+				   if($continue -eq 'y' -Or $continue -eq 'Y')
+					{
+						$users = import-csv -Path $CsvFilePath
+
+					###
+					### Loop through all new users in the file. We'll use the ForEach cmdlet for this.
+					###
+
+					Foreach ($user in $users) { 
+
+						if([string]::IsNullOrEmpty($user.UserPrincipalName))
+						{	
+								# Change the following UserPrincipalName to the user you wish to change state
+								
+								Get-MsolUser -UserPrincipalName $user.MailNickName+ "@" + $Directory | Set-MsolUser -StrongAuthenticationRequirements @()
+							
+						} else {
+							Get-MsolUser -UserPrincipalName $user.UserPrincipalName | Set-MsolUser -StrongAuthenticationRequirements @()
+		
+
+						}
+					###
+					### End the Foreach loop
+					###
+						}
+	
+					}
+					else
+					{
+					 write-host "End the Porcess..."
+					}
+	} elseif($ReadUserInput -eq 'C' -Or $ReadUserInput -eq 'c')
+	{
+		   Get-MsolUser -All | Set-MsolUser -StrongAuthenticationRequirements @()
+	}
+				
+
+}
+
 function Show-Menu
 {
      param (
@@ -402,7 +537,8 @@ function Show-Menu
      Write-Host "7: Press '7' Remove License"
      Write-Host "8: Press '8' Add Azure Application"
      Write-Host "9: Press '9' Remove Azure Application"
-     Write-Host "M: Press 'M' Enable MFA/ Force MFA For Users"
+     Write-Host "M: Press 'M' Enable MFA/Force MFA For Users"
+     Write-Host "D: Press 'M' Disable MFA For Users" 
 	 Write-Host "R: Press 'R' Recover Deleted Object"
 	
 
@@ -459,15 +595,23 @@ do
            } '7' {
                 cls
                 '#7 Remove License'
+				Unassign-License
            } '8' {
                 cls
                 '#8 Add Azure Application'
+				Create-AzureADApp
            } '9' {
                 cls
                 '#9 Remove Azure Application'
+				Delete-AzureADApp
            }'M' {
                 cls
                 'Option M: Enable MFA/ Force MFA For Users'
+				Enable-MFA
+		  }'D' {
+                cls
+                'Option D: Disable MFA For Users'
+				Disable-MFA
            } 'R' {
                 cls
                 'Option R: Recover Deleted Object'
