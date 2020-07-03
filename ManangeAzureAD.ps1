@@ -1,9 +1,30 @@
+<#
+    .SYNOPSIS
+     Manage Azure AD - Daily Tasks
+	
+    .NOTES
+     Script is provided as an example, it has no error handeling and is not production ready. App name and permissions is hard coded.
+	 We Will Keep enhancing it and will inform you once it's ready to use in production environment
+	 
+	.ABOUTUS
+	 Author  : Azure-Heroes (Mohammad Al Rousan)
+	 Date    : 01-07-2020
+	 Version : 0.2
+#>
+
+
 $ErrorActionPreference="SilentlyContinue"
 Stop-Transcript | out-null
 $ErrorActionPreference = "Continue"
 Start-Transcript -path "aadlogs.txt" -append
 
 Set-ExecutionPolicy Unrestricted -Force
+
+$ErrorActionPreference = "Continue"
+
+# connecting to Azure Ad
+Import-Module AzureRM
+Import-Module AzureAD
 
 
 ###
@@ -146,12 +167,12 @@ $i=0
 write-host "Please Select Object you want to recover"
 foreach($delObj in $deletedObjec)
 {
-i=i+1
-write-host i + ':' + $delObj.DisplayName
+$i = $i + 1
+write-host $i + ':' + $delObj.DisplayName
 }
 
  $userinput = Read-Host "Please make a selection"
- Restore-AzureADMSDeletedDirectoryObject -DisplayName
+ Restore-AzureADMSDeletedDirectoryObject -DisplayName $deletedObjec[$userinput].DisplayName
  
  write-host "Object Restored Successfully!"
  
@@ -168,8 +189,8 @@ $i=0
 write-host "Please Select Object you want to Add member into it"
 foreach($group in $azGroups)
 {
-i=i+1
-write-host i + ':' + $group.DisplayName
+$i = $i + 1
+write-host $i + ':' + $group.DisplayName
 }
 
  $userinput = Read-Host "Please make a selection"
@@ -181,14 +202,13 @@ $users = import-csv -Path $CsvFilePath
 ### Loop through all new users in the file. We'll use the ForEach cmdlet for this.
 ###
 
-Foreach ($user in $delUsers) { 
+Foreach ($user in $users) { 
 
-i=i-1
 	if([string]::IsNullOrEmpty($delUser.UserPrincipalName))
 	{	
-		Add-AzureADGroupMember -ObjectId $azGroups[i].DisplayName -RefObjectId  $user.MailNickName+ "@" + $Directory
+		Add-AzureADGroupMember -ObjectId $azGroups[$userinput].DisplayName -RefObjectId  $user.MailNickName+ "@" + $Directory
 	} else {
-		Add-AzureADGroupMember -ObjectId $azGroups[i].DisplayName -RefObjectId  $user.UserPrincipalName
+		Add-AzureADGroupMember -ObjectId $azGroups[$userinput].DisplayName -RefObjectId  $user.UserPrincipalName
 		
 	}
 ###
@@ -211,8 +231,8 @@ $i=0
 write-host "Please Select Object you want to remove a member from it"
 foreach($group in $azGroups)
 {
-	i=i+1
-	write-host i + ':' + $group.DisplayName
+	$i = $i + 1
+	write-host $i + ':' + $group.DisplayName
 }
 
  $userinput = Read-Host "Please make a selection"
@@ -226,13 +246,12 @@ $users = import-csv -Path $CsvFilePath
 
 Foreach ($user in $delUsers) { 
 
-i=i-1
 	if([string]::IsNullOrEmpty($delUser.UserPrincipalName))
 	{	
-		Remove-AzureADGroupMember -ObjectId $azGroups[i].DisplayName -MemberId  $user.MailNickName+ "@" + $Directory
+		Remove-AzureADGroupMember -ObjectId $azGroups[$userinput].DisplayName -MemberId  $user.MailNickName+ "@" + $Directory
 	} else {
-		Remove-AzureADGroupMember -ObjectId $azGroups[i].DisplayName -MemberId  $user.UserPrincipalName
-		
+		Remove-AzureADGroupMember -ObjectId $azGroups[$userinput].DisplayName -MemberId  $user.UserPrincipalName
+
 	}
 ###
 ### End the Foreach loop
@@ -265,7 +284,6 @@ Available Licenses: $AvailLic
 }
 
 
-
 function Assign-License
 {
 
@@ -289,14 +307,84 @@ Write-Host "Checking all avaialble Licenses license..." -ForegroundColor White
 			{
 				$NotAbletoLic++
 				Write-Warning -Message "Please purchase for $License licenses, there are $AvailLic left"
-			}
-		}
-		Else
-		{
-			$AlreadyLic++
-			Write-Host "$($Present.DisplayName) is licensed!" -ForegroundColor Green
-		}
+			}		
 }
+
+function Create-AzureADApp
+{
+
+$dname = $input = Read-Host "Please Enter App Name e.g (Azure Heroes App)"
+$idUrl = $input = Read-Host "Please Enter IdentifierUris e.g (https://localhost/Azure-heroesApp)"
+$HPage = $input = Read-Host "Please Enter Home Page URL (https://localhost/Azure-HeroesApp)"
+$appValidity = $input = Read-Host "Please Enter Validity for the Credential e.g (2)"
+
+$appName = "TailwindTradersSalesApp"
+$appURI = "https://tailwindtraderssalesapp.twtmitt.onmicrosoft.com"
+$appHomePageUrl = "http://www.tailwindtraders.com/"
+#$appReplyURLs = @($appURI, $appHomePageURL, "https://localhost:1234")
+
+if(!($AzApp = Get-AzureADApplication -Filter "DisplayName eq '$($dname)'"  -ErrorAction SilentlyContinue))
+{
+	$Guid = New-Guid
+	$startDate = Get-Date
+	
+	$PassCred 				= New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordCredential
+	$PassCred.StartDate 		= $startDate
+	$PassCred.EndDate 		= $startDate.AddYears($appValidity)
+	$PassCred.KeyId 			= $Guid
+	$PassCred.Value 			= ([System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes(($Guid))))+"="
+
+	$AzApp = New-AzureADApplication -DisplayName $dname -IdentifierUris $idUrl -HomePage $HPage	-PasswordCredentials $PassCred
+	
+	$AppDet = "Application Details for the $AADApplicationName application:
+=========================================================
+Application Name: 	$dname
+Application Id:   	$($AzApp.AppId)
+Secret Key:       	$($PasswordCredential.Value)
+"
+	Write-Host
+	Write-Host $AppDet
+}
+else
+{
+	Write-Host
+	Write-Host -f "Yellow Azure AD Application $appName already exists."
+}
+Write-Host
+Write-Host -f Green "Finished"
+Write-Host
+
+
+}
+
+
+function Delete-AzureADApp
+{
+
+$azApps = Get-AzureADApplication 
+
+$i=0
+write-host "Please Select App you want to remove"
+foreach($Appid in $azApps)
+{
+	$i = $i + 1
+	write-host $i + ':' + $Appid.DisplayName
+}
+
+ $userinput = Read-Host "Please make a selection"
+
+
+Get-AzureRmADApplication -ObjectId $azApps[$userinput].ObjectId | Remove-AzureRmADApplication
+
+
+	
+ 
+ write-host "Member Removed Successfully!"
+  
+ 
+ 
+}
+
 function Show-Menu
 {
      param (
